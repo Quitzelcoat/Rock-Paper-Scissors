@@ -2,10 +2,13 @@
 // create an array for 3 values(rock,paper,scissors).
 // Choose the array inside func to random choose the values from it.
 
+let choices = ["rock", "paper", "scissors"];
 
 function getComputerChoice () {
-    let choices = ["rock", "paper", "scissors"];
-    let choose = choices[Math.floor(Math.random() * choices.length)];
+
+    getComputerChoice = choices;
+
+    let choose = getComputerChoice[Math.floor(Math.random() * choices.length)];
     console.log(choose);
 }
 
@@ -14,15 +17,15 @@ function playRound (playerSelection, computerSelection) {
     
     playerSelection = prompt("Rock, Paper, Scissors.");
     
-    computerSelection = getComputerChoice;
+    computerSelection == getComputerChoice;
     
-    if (playerSelection == "rock" && getComputerChoice == "rock") {
+    if (playerSelection === computerSelection ) {
         console.log("you won");
     } else {
-        console.log("you lost");
+        console.log("you Lost");
     }
     
-    console.log(playerSelection)
+    console.log(playerSelection);
     
 }
 
