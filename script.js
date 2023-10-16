@@ -1,23 +1,22 @@
-// Create a function getComputerChoice
-// create an array for 3 values(rock,paper,scissors).
-// Choose the array inside func to random choose the values from it.
-
 let choices = ["rock", "paper", "scissors"];
 
 let theUser = 0;
 let theComputer = 0;
+let round = 0;
+
+
+/* computer random choice */
 
 function getComputerChoice () {
-
     let choose = choices[Math.floor(Math.random() * choices.length)];
     return choose;
 }
 
-function playRound (playerSelection, computerSelection) {
+/* The result of the choosen choice */
 
+function playRound (playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
-    
     if (playerSelection === computerSelection) {
         return "You draw this round by choosing " + playerSelection + " While computer also chose " + computerSelection;
     }
@@ -41,59 +40,61 @@ function playRound (playerSelection, computerSelection) {
     } else (!(playerSelection === "rock" || playerSelection === "scissors" || playerSelection === "paper")); {
         return "Sorry please input the right words!"
     }
-
 }
 
-/*
-create a new function in which add the previous function (of computer vs user) into this function 
-to run previous function 5 times and each time add the score by 1. Of if the computer wins
-it gets 1 score and if user wins it gets 1 score to it for 5 times and in the end show
-the message telling wether user won more points than computer or not.
+/* Display the choices on the DOM */
 
-inputs:
-put previous function into this function 5 times.
-each time it should add 1 or subtract 1 from the 5 turns and show how many turns are left.
-after each turn it should input the total num of times the user and computer won.
-create another input which will show the result of the all 5 turns and tell if computer won or the user.
-
-output:
-shows 5 turns and after each round should add 1 or subtract 1 5 times and show the remaining numbers.
-Show the total score of the user and the computer after each turn
-when last turn is done instead of the num show message of if the user won the total score or the computer
-
-run for 5 rounds each time adding 1 to 5 rounds or subtracting 1 from 5 to show it 4.
-first time to last if computer wins 1 point to computer and if player wins 1 point to player.
-after 5 times if player total points > computer points write you win.
-if total points of computer > player points write you loose play again. 
-*/
-
-function game() {
+const btns = document.querySelectorAll('button');
+const playerScore = document.getElementById("playerScore");
+const compScore = document.getElementById("compScore");
+const totalScore = document.getElementById("totalScore");
 
 
-    for(let i = 0; i < 5; i++) {
-        const playerSelection = prompt("Rock", "Paper", "Scissors");
-        const computerSelection = getComputerChoice();
+btns.forEach((button) => {
+    button.addEventListener('click', () => {
+        if(round < 5) {
+            const playerSelection = button.getAttribute('data-choice');
+            const computerSelection = getComputerChoice();
+            const choiceResult = playRound(playerSelection, computerSelection);
+            const result = document.getElementById("result");
+            result.textContent = choiceResult;
+            round++;
+            totalScore.textContent = `Rounds: ${round}`;
+            playerScore.textContent = `Player: ${theUser}`;
+            compScore.textContent = `Computer: ${theComputer}`;
+        }
 
-        const currentRound = playRound(playerSelection, computerSelection);
+        if(round === 5) {
+            const winner = document.getElementById("winner");
 
-        console.log("Round: ", (i + 1));
-        console.log(currentRound);
-        console.log("User Score:", theUser);
-        console.log("Computer Score", theComputer);
+            if (theComputer > theUser) {
+                winner.textContent = "Unpredicted! You Lost. Please try again next time";
+            } else if (theUser > theComputer) {
+                winner.textContent = "Congratulations! You Won a new achievement has been made.";
+            } else {
+                winner.textContent = "Good try! Its a tie. Try your luck next time";
+            }
+        }
+    });
+});
 
-        
-    }
+// To Reset the entire game
 
-    if (theComputer > theUser) {
-        return "Unpredicted! You Lost. Please try again next time";
-    } else if (theUser > theComputer) {
-        return "Congratulations! You Won a new achievement has been made.";
-    } else {
-        return "Good try! Its a tie. Try your luck next time";
-    }
-}
+const resetBtn = document.getElementById("resetButton");
+resetBtn.addEventListener('click', () => {
+    theUser = 0;
+    theComputer = 0;
+    round = 0;
 
-alert(game());
-const playerSelection = prompt("Rock, Paper, Scissors");
+    const result = document.getElementById("result");
+    const totalScore = document.getElementById("totalScore");
+    const winner = document.getElementById("winner");
+
+    result.textContent = "";
+    totalScore.textContent = "Round, 0";
+    theUser.textContent = "Player: 2"
+    theComputer.textContent = "Computer: 0";
+    winner.textContent = "";
+});
+
 const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));

@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    background-color: #404101;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+}
+
+#playerScore {
+    padding-right: 10px;
+}
+
+.allScore {
+    display: flex;
+    padding: 20px;
+}
